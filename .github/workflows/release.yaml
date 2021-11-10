@@ -3,6 +3,8 @@ on:
     # Sequence of patterns matched against refs/tags
     tags:
       - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+      - 'staging-*'
+      - 'prod-*'
 
 name: Create Release
 
@@ -27,13 +29,25 @@ jobs:
             - Second Change
           draft: false
           prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset 
+      - name: Upload Release Asset for Staging
+        id: upload-release-asset-staging
         uses: actions/upload-release-asset@v1
+        if: ${{ startsWith(github.ref, 'staging-') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./README.md
-          asset_name: README.md
+          asset_path: ./text-staging.md
+          asset_name: text-staging.md
+          asset_content_type: text/markdown
+      - name: Upload Release Asset for Production
+        id: upload-release-asset-staging
+        uses: actions/upload-release-asset@v1
+        if: ${{ startsWith(github.ref, 'prod-') }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./text-prod.md
+          asset_name: text-prod.md
           asset_content_type: text/markdown
