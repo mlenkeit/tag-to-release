@@ -32,7 +32,7 @@ jobs:
       - name: Upload Release Asset for Staging
         id: upload-release-asset-staging
         uses: actions/upload-release-asset@v1
-        if: ${{ startsWith(github.ref, 'staging-') }}
+        if: ${{ startsWith(github.ref, 'staging') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -43,7 +43,7 @@ jobs:
       - name: Upload Release Asset for Production
         id: upload-release-asset-prod
         uses: actions/upload-release-asset@v1
-        if: ${{ startsWith(github.ref, 'prod-') }}
+        if: ${{ startsWith(github.ref, 'prod') }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
