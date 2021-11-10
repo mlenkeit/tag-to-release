@@ -41,7 +41,7 @@ jobs:
           asset_name: text-staging.md
           asset_content_type: text/markdown
       - name: Upload Release Asset for Production
-        id: upload-release-asset-staging
+        id: upload-release-asset-prod
         uses: actions/upload-release-asset@v1
         if: ${{ startsWith(github.ref, 'prod-') }}
         env:
