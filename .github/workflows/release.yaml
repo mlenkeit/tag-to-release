@@ -20,6 +20,8 @@ jobs:
           echo '${{ github.ref }}'
           echo '${{ startsWith(github.ref, 'staging') }}'
           echo '${{ startsWith(github.ref, 'prod') }}'
+          echo '${{ contains(github.ref, 'staging') }}'
+          echo '${{ contains(github.ref, 'prod') }}'
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
